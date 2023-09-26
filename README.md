@@ -3,6 +3,7 @@
 Created to display my art so I can record to OBS Studio.
 
 Python program to display the images in the images directory while playing the audio files in the audio directory
+Easiest way to start is just download the latest release and extract with directories to whatever location you like. Run the Python file or .EXE file.
 
 Place your images (1080p) in the images directory
 Place your audio files in the audio directory
