@@ -14,6 +14,7 @@ Several functions built in to add some effects. Add the keyword to the image fil
 Effect keywords: RAIN, SNOW, BLIZZARD, SPECIAL, FIREFLY, WAVE, FIREWORKS
 
 LEFT and RIGHT cursor keys will move forward and backwards through the images.
+UP and DOWN cursor keys will select the next or previous audio file.
 
 Either run with 'python ss93.py' if your have python installed or by the executable file.
 
