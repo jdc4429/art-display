@@ -35,8 +35,6 @@ if missing_modules:
 else:
     print("All required modules are already installed.")
 
-import importlib
-import subprocess
 import pygame
 import os
 import random
