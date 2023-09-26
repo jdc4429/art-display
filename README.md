@@ -13,7 +13,7 @@ Effect keywords: RAIN, SNOW, BLIZZARD, SPECIAL, FIREFLY, WAVE, FIREWORKS
 
 Either run with 'python ss93.py' if your have python installed or by the executable file.
 
-Images are currently set to display every 15 seconds but change be easily changed in the program. Line 315    if time.time() - image_change_timer > 15:
+Images are currently set to display every 15 seconds but can be easily changed in the program. Line 315    if time.time() - image_change_timer > 15:
 
 If you are interested in my art, you can reach out to me at: https://www.deviantart.com/jdc4429/gallery
 
