@@ -2,6 +2,11 @@
 
 Created to display my art so I can record to OBS Studio.
 
+<<<<<<< HEAD
+=======
+Python program to display the images in the images directory while playing the audio files in the audio directory
+
+>>>>>>> 761336ea800d995ffed2ffd3863a8b76e5d99a22
 Place your images (1080p) in the images directory
 Place your audio files in the audio directory
 
@@ -13,3 +18,7 @@ Either run with 'python ss93.py' if your have python installed or by the executa
 
 If you are interested in my art, you can reach out to me at: https://www.deviantart.com/jdc4429/gallery
 
+<<<<<<< HEAD
+=======
+https://www.youtube.com/@JEFFCARLETON
+>>>>>>> 761336ea800d995ffed2ffd3863a8b76e5d99a22
