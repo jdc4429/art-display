@@ -2,7 +2,6 @@
 
 Created to display my art so I can record to OBS Studio.
 
-=======
 Python program to display the images in the images directory while playing the audio files in the audio directory
 
 Place your images (1080p) in the images directory
@@ -21,6 +20,5 @@ Images are currently set to display every 15 seconds but can be easily changed i
 
 If you are interested in my art, you can reach out to me at: https://www.deviantart.com/jdc4429/gallery
 
-=======
-https://www.youtube.com/@JEFFCARLETON
+Also check out https://www.youtube.com/@JEFFCARLETON
 
