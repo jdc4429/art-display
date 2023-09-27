@@ -27,3 +27,4 @@ If you are interested in my art, you can reach out to me at: https://www.deviant
 
 Also check out https://www.youtube.com/@JEFFCARLETON
 
+Free to use for individual use.  Any monetary use please contact for arrangments and permission
