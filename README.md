@@ -25,4 +25,4 @@ If you are interested in my art, you can reach out to me at: https://www.deviant
 
 Check out https://www.youtube.com/@JEFFCARLETON if you don't want to download anything.
 
-Free to use for individual use.  Any monetary use please contact for arrangments and permission. Copyright 2023.
+Free to use for individual use.  Any monetary use please contact for arrangements and permission. Copyright 2023.
