@@ -10,7 +10,7 @@ Place your audio files in the audio directory
 
 Several functions built in to add some effects. Add the keyword to the image filename in order to add the effect.
 
-Effect keywords: RAIN, SNOW, BLIZZARD, SPECIAL, FIREFLY, WAVE, FIREWORKS
+Effect keywords: RAIN, SNOW, BLIZZARD, SPECIAL, FIREFLY, WAVE, FIREWORKS, BUBBLES, BUBBLEMAX
 
 ADDED TEXT;(font_size);(Message to display) Effect - Example Filename: flying_bird TEXT;20;Happy Birthday!.jpg will display Happy Birthday! in the size 20 font
 (TEXT must be the last option used in the filename if using other effects)
