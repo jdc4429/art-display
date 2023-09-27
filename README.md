@@ -1,6 +1,6 @@
 # art-display
 
-Created to display my art so I can record to OBS Studio.
+Created to display my art so I can record to OBS Studio or just play live.
 
 Python program to display the images in the images directory while playing the audio files in the audio directory
 Easiest way to start is just download the latest release and extract with directories to whatever location you like. Run the Python file or .EXE file.
