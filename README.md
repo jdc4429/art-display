@@ -1,6 +1,6 @@
 # art-display
 
-Created to display my art so I can record to OBS Studio.
+Created to display my art so I can record to OBS Studio or just play live.
 
 Python program to display the images in the images directory while playing the audio files in the audio directory
 Easiest way to start is just download the latest release and extract with directories to whatever location you like. Run the Python file or .EXE file.
@@ -25,4 +25,4 @@ If you are interested in my art, you can reach out to me at: https://www.deviant
 
 Check out https://www.youtube.com/@JEFFCARLETON if you don't want to download anything.
 
-Free to use for individual use.  Any monetary use please contact for arrangments and permission. Copyright 2023.
+Free to use for individual use.  Any monetary use please contact for arrangements and permission. Copyright 2023.
