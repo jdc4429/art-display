@@ -13,6 +13,7 @@ Several functions built in to add some effects. Add the keyword to the image fil
 Effect keywords: RAIN, SNOW, BLIZZARD, SPECIAL, FIREFLY, WAVE, FIREWORKS
 
 ADDED TEXT;(font_size);(Message to display) Effect - Example Filename: flying_bird TEXT;20;Happy Birthday!.jpg will display Happy Birthday! in the size 20 font
+(TEXT must be the last option used in the filename if using other effects)
 
 LEFT and RIGHT cursor keys will move forward and backwards through the images.
 
