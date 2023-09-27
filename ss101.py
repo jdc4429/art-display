@@ -1,12 +1,14 @@
 import importlib
 import subprocess
+import pygame
+import os
+import random
+import time
+import sys
+import math
 
-# List of required modules
-required_modules = [
-    "pygame",
-]
+required_modules = ["pygame",]
 
-# Function to check if a module is installed
 def is_module_installed(module_name):
     try:
         importlib.import_module(module_name)
@@ -14,7 +16,6 @@ def is_module_installed(module_name):
     except ImportError:
         return False
 
-# Function to install a module using pip
 def install_module(module_name):
     try:
         subprocess.check_call(["pip", "install", module_name])
@@ -22,7 +23,6 @@ def install_module(module_name):
     except subprocess.CalledProcessError:
         return False
 
-# Check and install required modules
 missing_modules = [module for module in required_modules if not is_module_installed(module)]
 
 if missing_modules:
@@ -34,13 +34,6 @@ if missing_modules:
             print(f"Failed to install {module}. Please install it manually.")
 else:
     print("All required modules are already installed.")
-
-import pygame
-import os
-import random
-import time
-import sys
-import math
 
 pygame.init()
 pygame.mixer.init()
@@ -258,6 +251,101 @@ class Firefly:
     def draw(self):
         pygame.draw.circle(screen, self.color, (int(self.x), int(self.y)), self.size)
 
+class Bubble:
+    def __init__(self, x, y, speed, size='17p'):
+        self.size = size
+        self.image = pygame.image.load(f'bubble-{self.size}.png').convert_alpha()
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
+        self.speed = speed
+
+    def rise(self):
+        self.rect.y -= self.speed
+        if self.rect.bottom < 0:
+            self.rect.top = screen_height
+
+    def draw(self):
+        screen.blit(self.image, self.rect)
+
+class BUBBLEMAX:
+    def __init__(self):
+        self.bubbles = []
+        self.bubble_spawn_frequency = {
+            '17p': 0.2,
+            '38p': 0.1,
+            '75p': 0.05,
+        }
+
+        # Create large 75p bubbles
+        for _ in range(5):
+            x = random.randint(0, screen_width)
+            y = random.randint(0, screen_height)
+            bubble = Bubble(x, y, random.uniform(1, 3), size='75p')
+            self.bubbles.append(bubble)
+
+        # Create more 38p bubbles
+        for _ in range(10):
+            x = random.randint(0, screen_width)
+            y = random.randint(0, screen_height)
+            bubble = Bubble(x, y, random.uniform(1, 3), size='38p')
+            self.bubbles.append(bubble)
+
+        # Create lots of 17p bubbles
+        for _ in range(30):
+            x = random.randint(0, screen_width)
+            y = random.randint(0, screen_height)
+            bubble = Bubble(x, y, random.uniform(1, 3), size='17p')
+            self.bubbles.append(bubble)
+
+    def update(self):
+        for bubble in self.bubbles:
+            bubble.rise()
+
+    def draw(self):
+        for bubble in self.bubbles:
+            bubble.draw()
+
+class FIRE:
+    def __init__(self):
+        self.frame_duration = 50  # Adjust the duration between frames as needed
+        self.last_frame_time = pygame.time.get_ticks()
+        self.frame_index = 0
+        self.frames = []
+        frame_dir = "fire_frames"  # Directory containing the frames
+
+        # Load individual frames
+        frame_files = [f for f in os.listdir(frame_dir) if f.endswith(('.png', '.jpg', '.jpeg', '.bmp'))]
+        frame_files.sort()  # Sort the frame files to ensure correct order
+        for filename in frame_files:
+            frame = pygame.image.load(os.path.join(frame_dir, filename)).convert_alpha()
+            self.frames.append(frame)
+
+        # Calculate the number of flame animations needed to cover the screen width
+        num_animations = screen_width // self.frames[0].get_width() + 1
+        self.animation_rects = []
+
+        # Create multiple copies of the flame animation, placing them side by side
+        for i in range(num_animations):
+            animation_rect = self.frames[0].get_rect()
+            animation_rect.midbottom = (i * animation_rect.width + animation_rect.width // 2, screen_height)
+            self.animation_rects.append(animation_rect)
+
+    def update(self):
+        # Update the animation frame for each copy
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_frame_time >= self.frame_duration:
+            self.frame_index = (self.frame_index + 1) % len(self.frames)
+            self.last_frame_time = current_time
+
+    def draw(self):
+        # Draw the animated fire effect for each copy
+        for animation_rect in self.animation_rects:
+            screen.blit(self.frames[self.frame_index], animation_rect)
+
+fire_border = FIRE()
+bubblemax = BUBBLEMAX()
+bubbles = []  # List to store bubble objects
+bubble_spawn_frequency = 0.1  # Adjust the frequency of bubble spawn
 fireflies = []
 raindrops = []
 snowflakes = []
@@ -286,15 +374,41 @@ class TextDisplay:
         self.font_size = font_size
         self.font = pygame.font.Font(None, font_size)
         self.text_color = (255, 255, 255)
-        self.text_surface = None
-        self.text_rect = None
+        self.text_surfaces = []
+        self.text_rects = []
         self.text_alpha = 255
         self.fade_speed = 1
 
     def render(self):
-        self.text_surface = self.font.render(self.text, True, self.text_color)
-        self.text_rect = self.text_surface.get_rect()
-        self.text_rect.center = (screen_width // 2, screen_height // 3)
+        max_line_length = 45  # Adjust the desired line length here
+        words = self.text.split()
+        lines = []
+        current_line = []
+
+        for word in words:
+            if sum(len(word) for word in current_line) + len(current_line) + len(word) <= max_line_length:
+                current_line.append(word)
+            else:
+                lines.append(" ".join(current_line))
+                current_line = [word]
+
+        if current_line:
+            lines.append(" ".join(current_line))
+
+        for line in lines:
+            text_surface = self.font.render(line, True, self.text_color)
+            self.text_surfaces.append(text_surface)
+            text_rect = text_surface.get_rect()
+            self.text_rects.append(text_rect)
+
+        total_height = sum([rect.height for rect in self.text_rects])
+        current_y = (screen_height - total_height) // 2
+
+        for i in range(len(self.text_surfaces)):
+            self.text_rects[i].centerx = screen_width // 2
+            self.text_rects[i].top = current_y
+            current_y += self.text_rects[i].height
+
         self.text_alpha = 255
 
     def update(self):
@@ -302,13 +416,17 @@ class TextDisplay:
             self.text_alpha -= self.fade_speed
             if self.text_alpha < 0:
                 self.text_alpha = 0
-            self.text_surface.set_alpha(self.text_alpha)
+            for text_surface in self.text_surfaces:
+                text_surface.set_alpha(self.text_alpha)
 
     def draw(self):
-        if self.text_surface is not None and self.text_alpha > 0:
-            screen.blit(self.text_surface, self.text_rect)
+        if self.text_alpha > 0:
+            for i in range(len(self.text_surfaces)):
+                screen.blit(self.text_surfaces[i], self.text_rects[i])
+
 
 current_text_display = None
+display_filename = False
 
 while waiting_for_start:
     for event in pygame.event.get():
@@ -347,6 +465,10 @@ while running:
                 current_audio_index = (current_audio_index - 1) % len(audio_filenames)
                 if not all_audio_played():
                     play_audio()
+            
+            # Toggle display_filename when 'f' key is pressed
+            elif event.key == pygame.K_f:
+                display_filename = not display_filename  # Toggle the state
 
     if len(image_filenames) > 0:
         if time.time() - image_change_timer > 15:
@@ -382,6 +504,12 @@ while running:
         current_mode = "FIREWORKS"
     elif 'FIREFLY' in current_image_filename:
         current_mode = "FIREFLY"
+    elif 'FLAME' in current_image_filename:
+        current_mode = "FLAME"
+    elif 'BUBBLES' in current_image_filename:
+        current_mode = "BUBBLES"
+    elif 'BUBBLEMAX' in current_image_filename:
+        current_mode = "BUBBLEMAX"
     else:
         current_mode = "NONE"
 
@@ -452,20 +580,42 @@ while running:
             firefly.move()
             firefly.draw()
 
-    # Extract the message from the filename
+    if current_mode == "BUBBLES":
+        if random.random() < bubble_spawn_frequency:
+            x = random.randint(0, screen_width)
+            bubble = Bubble(x, screen_height, random.uniform(1, 5))
+            bubbles.append(bubble)
+
+        for bubble in bubbles:
+            bubble.rise()
+            bubble.draw()
+
+    if current_mode == "BUBBLEMAX":
+        bubblemax.update()
+        bubblemax.draw()
+
+    if current_mode == "FLAME":
+        fire_border.update()
+        fire_border.draw()
+
     current_image_filename = os.path.basename(image_filenames[current_image_index]).upper()
     if 'TEXT' in current_image_filename:
-        # Split the filename based on ';' to get the parameters
         filename_parts = current_image_filename.split(';')
         font_size = int(filename_parts[1])
         text = filename_parts[2].split('.')
         current_text_display = TextDisplay(text[0], font_size)
         current_text_display.render()
 
-    # Display text
     if current_text_display is not None:
         current_text_display.update()
         current_text_display.draw()
+    
+    if display_filename:
+        filename_text = os.path.basename(image_filenames[current_image_index])
+        filename_surface = font.render(filename_text, True, (255, 255, 255))
+        filename_rect = filename_surface.get_rect()
+        filename_rect.bottomleft = (0, screen_height)
+        screen.blit(filename_surface, filename_rect)
 
     pygame.display.flip()
 
