@@ -22,6 +22,6 @@ Images are currently set to display every 15 seconds but can be easily changed i
 
 If you are interested in my art, you can reach out to me at: https://www.deviantart.com/jdc4429/gallery
 
-Check out https://www.youtube.com/@JEFFCARLETON if you don't want to download anything.
+Check out https://www.youtube.com/watch?v=cqGuCB96O9s for an example.
 
 Free to use for individual use.  Any monetary use please contact for arrangements and permission. Copyright 2023.
