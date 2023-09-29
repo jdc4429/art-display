@@ -485,7 +485,7 @@ while running:
     current_mode = "NONE"
 
     if len(image_filenames) > 0:
-        if time.time() - image_change_timer > 15:
+        if time.time() - image_change_timer > 10:
             current_image_index = (current_image_index + 1) % len(image_filenames)
             image_change_timer = time.time()
     else:
