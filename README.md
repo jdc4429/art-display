@@ -18,7 +18,7 @@ LEFT and RIGHT cursor keys will move forward and backwards through the images.
 
 UP and DOWN cursor keys will select the next or previous audio file.
 
-Images are currently set to display every 15 seconds but can be easily changed in the program. Line 315    if time.time() - image_change_timer > 15:
+Images are currently set to display every 15 seconds but can be easily changed in the program. Change the 15 on the following line: if time.time() - image_change_timer > 15:
 
 If you are interested in my art, you can reach out to me at: https://www.deviantart.com/jdc4429/gallery
 
