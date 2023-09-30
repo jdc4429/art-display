@@ -7,6 +7,7 @@ import time
 import sys
 import math
 import cv2
+import time; time.sleep(5)
 
 required_modules = ["pygame","cv2",]
 
@@ -406,6 +407,41 @@ class FIRE:
         for animation_rect in self.animation_rects:
             screen.blit(self.frames[self.frame_index], animation_rect)
 
+class STARFIELD:
+    def __init__(self, num_stars):
+        self.num_stars = num_stars
+        self.stars = []
+        self.generate_stars()
+
+    def generate_stars(self):
+        for _ in range(self.num_stars):
+            x = random.randint(0, screen_width)
+            y = random.randint(0, screen_height)
+            brightness = random.randint(128, 255)
+            self.stars.append((x, y, brightness))
+
+    def update(self):
+        for i in range(len(self.stars)):
+            x, y, brightness = self.stars[i]
+            x += random.uniform(-0.5, 0.5)  # Simulate slight star movement
+            y += random.uniform(-0.5, 0.5)
+            if x < 0:
+                x = screen_width
+            elif x > screen_width:
+                x = 0
+            if y < 0:
+                y = screen_height
+            elif y > screen_height:
+                y = 0
+            self.stars[i] = (x, y, brightness)
+
+    def draw(self, screen):
+        for x, y, brightness in self.stars:
+            size = random.randint(1, 3)
+            color = (brightness, brightness, brightness)
+            pygame.draw.circle(screen, color, (int(x), int(y)), size)
+
+starfield = STARFIELD(200)
 fire_border = FIRE()
 bubblemax = BUBBLEMAX()
 bubbles = []  # List to store bubble objects
@@ -491,6 +527,10 @@ class TextDisplay:
 current_text_display = None
 display_filename = False
 
+# Added below lines to skip key press
+waiting_for_start = False
+pygame.mixer.music.unpause()
+
 while waiting_for_start:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -501,9 +541,9 @@ while waiting_for_start:
             pygame.mixer.music.unpause()
 
     screen.fill((0, 0, 0))
-    start_text = font.render("Press any key to start", True, (255, 255, 255))
-    start_text_rect = start_text.get_rect(center=(screen_width // 2, screen_height // 2))
-    screen.blit(start_text, start_text_rect)
+    #start_text = font.render("Press any key to start", True, (255, 255, 255))
+    #start_text_rect = start_text.get_rect(center=(screen_width // 2, screen_height // 2))
+    #screen.blit(start_text, start_text_rect)
     pygame.display.flip()
 
 while running:
