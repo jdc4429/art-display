@@ -24,6 +24,6 @@ Images are currently set to display every 10 seconds but can be easily changed i
 
 If you are interested in my art, you can reach out to me at: https://www.deviantart.com/jdc4429/gallery
 
-Check out https://www.youtube.com/watch?v=AD83uaReeRk for an example.
+Check out https://www.youtube.com/watch?v=4PaqgIELhJE for an example.
 
 Free to use for individual use.  Any monetary use please contact for arrangements and permission. Copyright 2023.
